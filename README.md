@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="./resources/banner.png" width="80%" height="40%" alt="Banner"><br><br>
+  <img src="./resources/banner.png" width="80%" height="60%" alt="Banner"><br><br>
   <img src="https://img.shields.io/github/release/ciderapp/Cider.svg?style=flat&label=Latest%20Release" alt="GitHub Releases"/>
   <img src="https://img.shields.io/github/stars/ciderapp/Cider?label=Stars" alt="GitHub Stars"/>
   <img src="https://img.shields.io/github/forks/ciderapp/Cider?label=Forks" alt="GitHub Forks"/>
@@ -9,12 +9,10 @@
   <a target="_blank" href="https://opencollective.com/ciderapp"><img src="https://img.shields.io/opencollective/all/ciderapp?color=%237FADF2&label=Backers%20and%20Sponsors&logo=opencollective" alt="Open Collective"/></a>
   <br>
   <a target="_blank" href="https://discord.gg/applemusic"><img src="https://img.shields.io/discord/843954443845238864?label=Discord&color=5865F2&logo=discord&logoColor=white&style=flat" alt="Discord"/></a>
-  <a target="_blank" href="https://twitter.com/CollectiveCider"><img src="https://img.shields.io/twitter/follow/CollectiveCider?label=Twitter&color=%231DA1F2&logo=twitter&style=flat" alt="Twitter"/></a>
+  <a target="_blank" href="https://twitter.com/UseCider"><img src="https://img.shields.io/twitter/follow/UseCider?label=Twitter&color=%231DA1F2&logo=twitter&style=flat" alt="Twitter"/></a>
   <a target="_blank" href="https://reddit.com/r/applemusicelectron"><img src="https://custom-icon-badges.herokuapp.com/reddit/subreddit-subscribers/applemusicelectron?label=Reddit&color=FF5700&logo=redditnew" alt="Reddit"/></a>
   <br><br>
-  <img src="https://github.com/ciderapp/Cider/actions/workflows/build-analyze-win.yml/badge.svg" alt="Windows Build Status"/>
-  <img src="https://github.com/ciderapp/Cider/actions/workflows/build-analyze-linux.yml/badge.svg" alt="Linux Build Status"/>
-  <img src="https://github.com/ciderapp/Cider/actions/workflows/build-analyze-macos.yml/badge.svg" alt="macOS Build Status"/>
+  <a href="https://circleci.com/gh/ciderapp/Cider/tree/main"><img src="https://circleci.com/gh/ciderapp/Cider/tree/main.svg?style=svg" alt="CircleCI Status"/></a>
 </p>
 
 #### Links
@@ -28,6 +26,8 @@
 
 [![Get it from the Microsoft Store](https://img.shields.io/badge/Get_It_From_The_Microsoft_Store-100000?style=for-the-badge&logo=microsoft)](https://www.microsoft.com/store/apps/9P21XJ9D9G66)
 
+[![Get it from Windows Package Manager](https://custom-icon-badges.herokuapp.com/badge/Get_It_via_Winget-100000?style=for-the-badge&logo=winstall)](https://winstall.app/apps/CiderCollective.Cider.Nightly)
+
 <!--
 
 [![Get it from Windows Package Manager](https://custom-icon-badges.herokuapp.com/badge/Get_It_via_Winget-100000?style=for-the-badge&logo=winstall)](https://winstall.app/apps/cryptofyre.AppleMusicElectron)
@@ -37,7 +37,7 @@
 [![Get it from the AUR](https://img.shields.io/badge/Get_It_From_The_AUR-100000?style=for-the-badge&logo=archlinux)](https://aur.archlinux.org/packages/cider)
 
 ### Compiling and Configuration
-For more information surrounding configuration, compiling and other developer documentation, see the [compilation docs](https://cider.sh/docs/compile).
+For more information surrounding configuration, compiling and other developer documentation, see the [compilation docs](https://cider.sh/compile.html).
 
 ### Credits
 ![Contributors](https://contrib.rocks/image?repo=ciderapp/Cider)

@@ -19,7 +19,7 @@
                             <div class="artist item-navigate text-overflow-elipsis" @click="app.searchAndNavigate(item,'artist')">
                                 {{ item.attributes.artistName }}
                             </div>
-                            <template v-if="item.attributes.albumName">&nbsp;-&nbsp;</template>
+                            <template v-if="item.attributes.albumName">&nbsp;—&nbsp;</template>
                             <template v-if="item.attributes.albumName">
                                 <div class="artist item-navigate text-overflow-elipsis" @click="app.searchAndNavigate(item,'album')">
                                 {{ item.attributes.albumName }}
@@ -48,13 +48,18 @@
                 let self = this
                 CiderContextMenu.Create(event, {
                     items: [{
-                        "name": "Remove from queue",
+                        "name": $root.getLz('action.removeFromQueue'),
                         "action": function () {
                             
                         }
                     }]
                 });
-            }
+            },
+            msToMinSec(ms) {
+                var minutes = Math.floor(ms / 60000);
+                var seconds = ((ms % 60000) / 1000).toFixed(0);
+                return minutes + ":" + (seconds < 10 ? '0' : '') + seconds;
+            },
         }
     });
 </script>

@@ -1,22 +1,13 @@
 <script type="text/x-template" id="mediaitem-artwork">
-    <template v-if="type == 'artists'">
-        <div class="mediaitem-artwork rounded" :key="url" :style="getStyle()">
-            <img :src="app.getMediaItemArtwork(url, size)"
-                 decoding="async"
-                 class="mediaitem-artwork--img">
+    <div class="mediaitem-artwork" :class="[{'rounded': (type == 'artists')}, classes]" :key="url">
+        <img :src="app.getMediaItemArtwork(url, size, width)"
+             decoding="async"
+             :style="{background: bgcolor}"
+             class="mediaitem-artwork--img">
+        <div v-if="video && getVideoPriority()" class="animatedartwork-view-box">
+            <animatedartwork-view :priority="getVideoPriority()" :video="video"></animatedartwork-view>
         </div>
-    </template>
-    <template v-else>
-        <div class="mediaitem-artwork" :key="url" :style="getStyle()"
-             v-observe-visibility="{callback: visibilityChanged}">
-            <img :src="app.getMediaItemArtwork(url, size)"
-                 decoding="async"
-                 class="mediaitem-artwork--img">
-            <div v-if="video && isVisible" class="animatedartwork-view-box">
-                <animatedartwork-view  :video="video"></animatedartwork-view>   
-            </div>  
-        </div>
-    </template>
+    </div>
 </script>
 
 <script>
@@ -24,8 +15,16 @@
         template: '#mediaitem-artwork',
         props: {
             size: {
-                type: String,
+                type: [String, Number],
                 default: '120'
+            },
+            width: {
+                type: [String, Number],
+                required: false
+            },
+            bgcolor: {
+                type: String,
+                default: ''
             },
             url: {
                 type: String,
@@ -39,41 +38,60 @@
                 type: String,
                 required: false
             },
+            videoPriority: {
+                type: Boolean,
+                required: false
+            },
             shadow: {
                 type: String,
-                default: 'none'
+                default: ''
             }
         },
         data: function () {
             return {
+                app:this.$root,
                 isVisible: false,
                 style: {
                     "box-shadow": ""
-                }
+                },
+                classes: []
             }
         },
+        mounted() {
+            this.getClasses()
+        },
         methods: {
-            getStyle() {
-                switch(this.shadow) {
-                    case "large":
-                        this.style["box-shadow"] = "var(--mediaItemShadow-Shadow)"
-                    break;
-                    case "subtle":
-                        this.style["box-shadow"] = "var(--mediaItemShadow-ShadowSubtle)"
-                    break;
-                    default:
-                    break;
+            getVideoPriority() {
+                if(app.cfg.visual.animated_artwork == "always") {
+                    return true;
+                }else if (this.videoPriority && app.cfg.visual.animated_artwork == "limited") {
+                    return true
+                } else if (app.cfg.visual.animated_artwork == "disabled") {
+                    return false
                 }
-                return this.style;
+                return this.videoPriority
+            },
+            getClasses() {
+                switch (this.shadow) {
+                    case "none":
+                        this.classes.push("no-shadow")
+                        break;
+                    case "large":
+                        this.classes.push("shadow")
+                        break;
+                    case "subtle":
+                        this.classes.push("subtle-shadow")
+                        break;
+                    default:
+                        break;
+                }
+                return this.classes;
             },
             getArtworkStyle() {
                 return {
                     width: this.size + 'px',
                     height: this.size + 'px'
                 };
-            },
-            visibilityChanged: function (isVisible, entry) {
-                this.isVisible = isVisible
             }
         }
     });

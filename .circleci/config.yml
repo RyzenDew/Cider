@@ -1,0 +1,55 @@
+version: 2.1
+jobs:
+  build:
+    working_directory: ~/Cider
+    docker:
+      - image: circleci/node:16
+    steps:
+      - checkout
+      - run:
+          name: Update Package Managers
+          command: sudo npm update -g npm yarn
+      - restore_cache:
+          name: Restore Yarn Package Cache
+          keys:
+            - yarn-packages-{{ checksum "yarn.lock" }}
+      - run:
+          name: Install Dependencies
+          command: yarn install --frozen-lockfile --cache-folder ~/.cache/yarn
+      - save_cache:
+          name: Save Yarn Package Cache
+          key: yarn-packages-{{ checksum "yarn.lock" }}
+          paths:
+            - ~/.cache/yarn
+      - run:
+          name: Install Playwright
+          command: yarn playwright install --with-deps
+      - run:
+          name: Install system build dependencies
+          command: |
+            sudo apt-get update -y
+            sudo apt-get install -y dpkg fakeroot wine64
+            sudo dpkg --add-architecture i386
+            sudo apt-get update -y
+            sudo apt-get install -y wine32
+      - store_test_results:
+          path: test-results
+      - run:
+          name: Generate Builds (Linux)
+          command: yarn dist -l -p never
+      - run:
+          name: Generate Builds (Windows)
+          command: yarn dist -w --x64 -p never
+      - run:
+          name: Move Build Files
+          command: |
+              mkdir ~/Cider/dist/artifacts/
+              mv ~/Cider/dist/*.exe ~/Cider/dist/artifacts
+              mv ~/Cider/dist/*.deb ~/Cider/dist/artifacts
+              mv ~/Cider/dist/*.AppImage ~/Cider/dist/artifacts
+              mv ~/Cider/dist/*.snap ~/Cider/dist/artifacts
+              mv ~/Cider/dist/*.yml ~/Cider/dist/artifacts
+
+      - store_artifacts:
+          path: ~/Cider/dist/artifacts
+          
